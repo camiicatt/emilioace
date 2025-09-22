@@ -1,0 +1,21 @@
+---
+// src/pages/contact.astro
+---
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Contact</title></head>
+  <body style="max-width:720px;margin:3rem auto;padding:0 1rem;font-family:sans-serif;">
+    <h1>Contact</h1>
+    <p>Tell us a bit about your project and we’ll get back to you.</p>
+
+    <form method="POST" action="/api/contact">
+      <label>Name<br /><input name="name" required></label><br /><br />
+      <label>Email<br /><input type="email" name="email" required></label><br /><br />
+      <label>Message<br /><textarea name="message" rows="6" required></textarea></label>
+
+      <!-- Honeypot (spam trap) -->
+      <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
+
+      <br /><button type="submit">Send</button>
+    </form>
+  </body>
+</html>
