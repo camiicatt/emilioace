@@ -1,49 +1,104 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+const gradImages = [
+  "/guy1.png",
+  "/girl2.png",
+  "/guy3.png",
+  "/guy4.png",
+  "/emilio.png",
+];
+
+const carImages = [
+  "/car1.jpg",
+  "/car2.jpg",
+  "/car3.jpg",
+];
+
+const natureImages = [
+  "/nature1.jpg",
+  "/nature2.jpg",
+  "/nature3.jpg",
+];
 ---
 
-<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Emilio Acevedo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <h1 class="logo">EMILIO ACEVEDO</h1>
+      <nav>
+        <a href="/about">About Me</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Question Intro -->
+    <section class="question-screen">
+      <h2 id="typed-question"></h2>
+      <div class="options">
+        <button data-type="grad">Grad Photos</button>
+        <button data-type="car">Cars</button>
+        <button data-type="nature">Nature</button>
+        <button data-type="all">All</button>
+      </div>
+    </section>
+
+    <!-- Gallery Area -->
+    <main id="gallery" class="home-gallery hidden"></main>
+
+	<script is:inline>
+		// Typed effect
+		const questionText = "What type of photos are you interested in?";
+		const questionEl = document.getElementById("typed-question");
+		let i = 0;
+		function typeWriter() {
+		  if (i < questionText.length) {
+			questionEl.textContent += questionText.charAt(i);
+			i++;
+			setTimeout(typeWriter, 50);
+		  }
+		}
+		typeWriter();
+	  
+		// Gallery data
+		const galleries = {
+		  grad: ["/guy1.png","/girl2.png","/guy3.png","/guy4.png","/emilio.png"],
+		  car: ["/car1.jpg","/car2.jpg","/car3.jpg"],
+		  nature: ["/nature1.jpg","/nature2.jpg","/nature3.jpg"],
+		  all: ["/guy1.png","/girl2.png","/guy3.png","/guy4.png","/emilio.png","/car1.jpg","/car2.jpg","/car3.jpg","/nature1.jpg","/nature2.jpg","/nature3.jpg"]
+		};
+	  
+		// Handle clicks
+		const buttons = document.querySelectorAll(".options button");
+		const galleryEl = document.getElementById("gallery");
+		const questionScreen = document.querySelector(".question-screen");
+	  
+		buttons.forEach(btn => {
+		  btn.addEventListener("click", () => {
+			const type = btn.getAttribute("data-type");
+			const imgs = galleries[type];
+	  
+			// build gallery
+			galleryEl.innerHTML = imgs.map(src => 
+			  `<div class="gallery-item"><img src="${src}" alt="photo"></div>`
+			).join("");
+	  
+			// hide question, show gallery
+			questionScreen.style.display = "none";
+			galleryEl.classList.remove("hidden");
+			
+			// trigger fade-in
+			requestAnimationFrame(() => {
+			  galleryEl.classList.add("visible");
+			});
+		  });
+		});
+	  </script>
+	  
+  </body>
 </html>

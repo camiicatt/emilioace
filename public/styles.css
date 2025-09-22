@@ -1,0 +1,106 @@
+:root {
+  --bg: #5a86ad;   /* site background */
+  --text: #000000; /* header text */
+  --btn-bg: #274d6e; /* blue for buttons */
+  --btn-hover: #5a86ad; /* deep blue hover */
+  --btn-text: #000000; /* black text on buttons */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  background: var(--bg);
+  border-bottom: 3px solid var(--text);
+}
+
+.logo {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-header nav a {
+  margin-left: 2.5rem;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Question Screen */
+.question-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+}
+
+#typed-question {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.options button {
+  background: var(--bg);        /* same as site background */
+  color: var(--text);           /* black text */
+  border: 2px solid var(--text);/* black outline */
+  border-radius: 4px;           /* squared look, can set to 0 if you want hard squares */
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.options button:hover {
+  background: var(--text);   /* fill black on hover */
+  color: var(--bg);          /* text turns blue */
+  transform: scale(1.05);
+}
+
+
+/* Gallery */
+.home-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.8s ease-in; /* fade in effect */
+}
+
+.home-gallery.visible {
+  opacity: 1;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.hidden {
+  display: none;
+}

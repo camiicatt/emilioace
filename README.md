@@ -64,3 +64,4 @@ This theme is based off of the lovely [Bear Blog](https://github.com/HermanMarti
 
 npm run build
 npx wrangler pages dev dist --port=8789
+npm install swiper
