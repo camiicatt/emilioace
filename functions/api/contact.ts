@@ -1,34 +1,14 @@
+// functions/api/contact.ts
 export const onRequestPost: PagesFunction = async (ctx) => {
   const data = await ctx.request.formData();
   const name = String(data.get("name") || "");
   const email = String(data.get("email") || "");
   const message = String(data.get("message") || "");
-  if (!name || !email || !message) return new Response("Missing fields", { status: 400 });
-  console.log({ name, email, message, ts: Date.now() });
-  return new Response("Thanks! We’ll be in touch.", { status: 200 });
-};
-
-
-// POST /api/contact
-export const onRequestPost: PagesFunction = async (ctx) => {
-  const data = await ctx.request.formData();
-  const name = String(data.get("name") || "");
-  const email = String(data.get("email") || "");
-  const message = String(data.get("message") || "");
-  const honeypot = String(data.get("company") || ""); // should be empty
+  const honeypot = String(data.get("company") || "");
 
   if (honeypot) return new Response("OK", { status: 200 }); // silent drop
-  if (!name || !email || !message) {
-    return new Response("Missing fields", { status: 400 });
-  }
+  if (!name || !email || !message) return new Response("Missing fields", { status: 400 });
 
-  // Option A: Just log (works out of the box)
   console.log({ name, email, message, ts: Date.now() });
-
-  // Option B (optional): send to a webhook/email service
-  // await fetch("https://your-webhook-or-email-service", { method: "POST", body: JSON.stringify({ name, email, message }) });
-
-  // Option C (optional): store in D1/KV for later review
-
   return new Response("Thanks! We’ll be in touch.", { status: 200 });
 };
