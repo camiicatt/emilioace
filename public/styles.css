@@ -14,6 +14,7 @@ body {
 }
 
 /* Header */
+/* Default (desktop/tablet) is already good */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -25,7 +26,7 @@ body {
 
 .logo {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: 3rem; /* fixed size */
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -35,9 +36,21 @@ body {
   margin-left: 2.5rem;
   text-decoration: none;
   color: var(--text);
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* fixed size */
   font-weight: 600;
 }
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 1rem 1.5rem;   /* less padding */
+  }
+
+  .site-header nav a {
+    margin-left: 1rem;      /* less spacing between links */
+  }
+}
+
 
 /* Question Screen */
 .question-screen {
@@ -189,24 +202,34 @@ body {
   margin-right: 1rem;
 }
 
-/* Continuous animations */
+/* Keyframes: scroll the entire duplicated row */
 @keyframes scroll-left {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(-100%); } /* move full width */
 }
 
 @keyframes scroll-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from { transform: translateX(-100%); } /* start shifted left */
+  to   { transform: translateX(0); }     /* slide back */
 }
 
 .car-row.scroll-left {
-  animation: scroll-left 120s linear infinite; /* slowed further */
+  animation: scroll-left 30s linear infinite;
 }
 
 .car-row.scroll-right {
-  animation: scroll-right 120s linear infinite;
+  animation: scroll-right 30s linear infinite;
 }
+
+/* Faster on mobile but still infinite */
+@media (max-width: 768px) {
+  .car-row.scroll-left,
+  .car-row.scroll-right {
+    animation-duration: 15s;
+  }
+}
+
+
 
 /* ABOUT */
 .about-section {
@@ -308,3 +331,82 @@ body {
 .fade-out {
   animation: fadeOut 0.5s ease forwards;
 }
+
+/* contact pafge */
+      /* Contact Page Specific Styling */
+      .contact-section {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;   /* align like About page */
+        min-height: calc(100vh - 100px); /* leave room for header */
+        padding: 2rem;
+        background: var(--bg);
+      }
+
+      .contact-form {
+        background: var(--bg);
+        border: 3px solid var(--text);
+        padding: 2rem 3rem;
+        width: 100%;
+        max-width: 1200px;         /* match About section scale */
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        margin: 0 auto;
+      }
+
+      /* Typography scales just like About */
+      .contact-form h2 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .contact-form p {
+        font-size: clamp(1rem, 3.5vw, 1.3rem);
+        margin-bottom: 2rem;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .contact-form label {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        font-weight: 700;
+        color: var(--text);
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--text);
+        background: var(--bg);
+        color: var(--text);
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        outline: none;
+        font-family: inherit;
+      }
+
+      .contact-form button {
+        background: var(--bg);
+        border: 2px solid var(--text);
+        color: var(--text);
+        padding: 1rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .contact-form button:hover {
+        background: var(--text);
+        color: var(--bg);
+      }
