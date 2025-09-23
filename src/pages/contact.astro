@@ -1,24 +1,136 @@
 ---
-// src/pages/contact.astro
 ---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Contact</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      /* Contact Page Specific Styling */
+      .contact-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 100px); /* full screen minus header */
+        padding: 2rem;
+        background: var(--bg);
+      }
+
+      .contact-form {
+        background: var(--bg);
+        border: 3px solid var(--text);
+        padding: 2rem 3rem;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .contact-form h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .contact-form p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .contact-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .contact-form label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--text);
+        background: var(--bg);
+        color: var(--text);
+        font-size: 1rem;
+        outline: none;
+        font-family: inherit;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--btn-bg);
+      }
+
+      .contact-form button {
+        background: var(--bg);
+        border: 2px solid var(--text);
+        color: var(--text);
+        padding: 0.8rem;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .contact-form button:hover {
+        background: var(--text);
+        color: var(--bg);
+      }
+    </style>
   </head>
-  <body style="max-width:720px;margin:3rem auto;padding:0 1rem;font-family:sans-serif;">
-    <h1>Contact</h1>
-    <p>Tell us about your project and we’ll get back to you.</p>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <h1 class="logo">EMILIO ACEVEDO</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About Me</a>
+      </nav>
+    </header>
 
-    <form method="POST" action="/api/contact">
-      <label>Name<br /><input name="name" required></label><br /><br />
-      <label>Email<br /><input type="email" name="email" required></label><br /><br />
-      <label>Message<br /><textarea name="message" rows="6" required></textarea></label>
+    <!-- Fullscreen Contact Section -->
+    <section class="contact-section">
+      <div class="contact-form">
+        <h2>LET'S CONNECT</h2>
+        <p>TELL ME ABOUT YOUR PROJECT AND I’LL GET BACK TO YOU</p>
 
-      <!-- Honeypot (spam trap) -->
-      <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
+        <form method="POST" action="/api/contact">
+          <label>
+            NAME
+            <input name="name" required />
+          </label>
 
-      <br /><button type="submit">Send</button>
-    </form>
+          <label>
+            EMAIL
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            MESSAGE
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+
+          <!-- Honeypot -->
+          <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
+
+          <button type="submit">SEND</button>
+        </form>
+      </div>
+    </section>
   </body>
 </html>

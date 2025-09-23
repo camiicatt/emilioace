@@ -5,19 +5,54 @@ const gradImages = [
   "/guy3.png",
   "/guy4.png",
   "/emilio.png",
+  "/AdrianSotoGrad-29.png",
+  "/BrianGrad-25.png",
+  "/BrianGrad.png",
+  "/ErikaGrad2022-13.png",
+  "/ErikaGrad2022-27.png",
+  "/GradPhoto-9.png",
+  "/SergioGrad-3.png",
 ];
 
 const carImages = [
-  "/car1.jpg",
-  "/car2.jpg",
-  "/car3.jpg",
-];
+  "/cars/car1.png",
+  "/cars/car2.png",
+  "/cars/car3.png",
+  "/cars/car4.png",
+  "/cars/car5.png",
+  "/cars/car6.png",
+  "/cars/car7.png",
+]
+
+const framedImages = [
+	"/framed/F1.png",
+	"/framed/F2.png",
+	"/framed/F3.png",
+	"/framed/F4.png",
+	"/framed/F5.png",
+	"/framed/F6.png",
+	"/framed/F7.png",
+	"/framed/F8.png",
+	"/nature/M1.png",	  
+	"/nature/M2.png",	  
+	"/nature/M3.png",
+]
+
 
 const natureImages = [
-  "/nature1.jpg",
-  "/nature2.jpg",
-  "/nature3.jpg",
+"/nature/N1.png",
+		  "/nature/N2.png",
+		  "/nature/N3.png",
+		  "/nature/N4.png",
+		  "/nature/N5.png",
+		  "/nature/N6.png",
+		  "/nature/N7.png",
+		  "/nature/N8.png",
+		  "/nature/N11.png",
+		  "/nature/N12.png",	
 ];
+
+
 ---
 
 <html lang="en">
@@ -44,6 +79,7 @@ const natureImages = [
         <button data-type="grad">Grad Photos</button>
         <button data-type="car">Cars</button>
         <button data-type="nature">Nature</button>
+		<button data-type="framed">Framed Photos</button>
         <button data-type="all">All</button>
       </div>
     </section>
@@ -52,6 +88,8 @@ const natureImages = [
     <main id="gallery" class="home-gallery hidden"></main>
 
 	<script is:inline>
+
+
 		// Typed effect
 		const questionText = "What type of photos are you interested in?";
 		const questionEl = document.getElementById("typed-question");
@@ -64,41 +102,149 @@ const natureImages = [
 		  }
 		}
 		typeWriter();
+
+
 	  
-		// Gallery data
+		// Gallery data (use your new arrays)
+		const gradImages = [
+		  "/guy1.png",
+		  "/girl2.png",
+		  "/guy3.png",
+		  "/guy4.png",
+		  "/emilio.png",
+		  "/AdrianSotoGrad-29.png",
+		  "/BrianGrad-25.png",
+		  "/BrianGrad.png",
+		  "/ErikaGrad2022-13.png",
+		  "/ErikaGrad2022-27.png",
+		  "/GradPhoto-9.png",
+		  "/SergioGrad-3.png",
+		];
+	  
+		const carImages = [
+		"/cars/car1.png",
+		"/cars/car2.png",
+		"/cars/car3.png",
+		"/cars/car4.png",
+		"/cars/car5.png",
+		"/cars/car6.png",
+		"/cars/car7.png",
+		"/cars/car8.png",
+		"/cars/car9.png",
+		"/cars/car10.png",
+		"/cars/car11.png",
+		"/cars/car12.png",
+		"/cars/car13.png",
+		"/cars/car14.png",
+		"/cars/car15.png",
+		"/cars/car16.png",
+		"/cars/car17.png",
+		"/cars/car18.png",
+		"/cars/car19.png",
+		"/cars/car20.png",
+		"/cars/car21.png",
+		"/cars/car22.png",
+		];
+	  
+		const natureImages = [
+		"/nature/N1.png",
+		  "/nature/N2.png",
+		  "/nature/N3.png",
+		  "/nature/N4.png",
+		  "/nature/N5.png",
+		  "/nature/N6.png",
+		  "/nature/N7.png",
+		  "/nature/N8.png",
+		  "/nature/N11.png",
+		  "/nature/N12.png",	
+		  "/nature/M1.png",	  
+		  "/nature/M2.png",	  
+		  "/nature/M3.png",
+
+		];
+
+		const framedImages = [
+	"/framed/F1.png",
+	"/framed/F2.png",
+	"/framed/F3.png",
+	"/framed/F4.png",
+	"/framed/F5.png",
+	"/framed/F6.png",
+	"/framed/F7.png",
+	"/framed/F8.png",
+]
+
+	  
 		const galleries = {
-		  grad: ["/guy1.png","/girl2.png","/guy3.png","/guy4.png","/emilio.png"],
-		  car: ["/car1.jpg","/car2.jpg","/car3.jpg"],
-		  nature: ["/nature1.jpg","/nature2.jpg","/nature3.jpg"],
-		  all: ["/guy1.png","/girl2.png","/guy3.png","/guy4.png","/emilio.png","/car1.jpg","/car2.jpg","/car3.jpg","/nature1.jpg","/nature2.jpg","/nature3.jpg"]
+		  grad: gradImages,
+		  car: carImages,
+		  nature: natureImages,
+		  framed: framedImages,
+		  all: [...gradImages, ...carImages, ...natureImages]
 		};
 	  
 		// Handle clicks
 		const buttons = document.querySelectorAll(".options button");
 		const galleryEl = document.getElementById("gallery");
 		const questionScreen = document.querySelector(".question-screen");
+		const optionsContainer = document.querySelector(".options");
+	  
+		function loadGallery(type) {
+			// Fade out existing content if present
+			if (galleryEl.innerHTML.trim() !== "") {
+				galleryEl.classList.add("fade-out");
+
+				// Wait for fade-out to finish before changing content
+				setTimeout(() => {
+				galleryEl.classList.remove("fade-out");
+				renderGallery(type);
+				}, 500); // match fadeOut duration
+			} else {
+				renderGallery(type);
+			}
+			}
+
+			function renderGallery(type) {
+			const imgs = galleries[type];
+
+			if (type === "car") {
+				const rowContent = imgs.map(src => `<img src="${src}" alt="car">`).join("");
+				const doubled = rowContent + rowContent;
+				galleryEl.innerHTML = `
+				<div class="car-gallery">
+					<div class="car-row scroll-left">${doubled}</div>
+					<div class="car-row scroll-right">${doubled}</div>
+				</div>
+				`;
+			} else {
+				galleryEl.innerHTML = imgs.map((src, i) =>
+				`<div class="gallery-item"><img src="${src}" alt="photo" class="fade-in" style="animation-delay:${i * 0.03}s"></div>`
+				).join("");
+			}
+
+			galleryEl.classList.remove("hidden");
+			galleryEl.classList.add("visible");
+			}
+
+
+
 	  
 		buttons.forEach(btn => {
 		  btn.addEventListener("click", () => {
 			const type = btn.getAttribute("data-type");
-			const imgs = galleries[type];
+			loadGallery(type);
 	  
-			// build gallery
-			galleryEl.innerHTML = imgs.map(src => 
-			  `<div class="gallery-item"><img src="${src}" alt="photo"></div>`
-			).join("");
-	  
-			// hide question, show gallery
-			questionScreen.style.display = "none";
-			galleryEl.classList.remove("hidden");
-			
-			// trigger fade-in
-			requestAnimationFrame(() => {
-			  galleryEl.classList.add("visible");
-			});
+			// first time click: remove question, move options to top
+			if (!optionsContainer.classList.contains("sticky")) {
+			  questionScreen.style.display = "none";
+			  optionsContainer.classList.add("sticky");
+			  document.body.insertBefore(optionsContainer, galleryEl);
+			}
 		  });
 		});
 	  </script>
+	  
+	  
 	  
   </body>
 </html>
